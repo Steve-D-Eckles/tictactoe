@@ -15,12 +15,11 @@ main {
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 33% 33% 33%;
   height: 600px;
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 600px;
 }
 
 div {
-  background-color: rebeccapurple;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,4 +48,20 @@ div {
 .br {
   border-left: 1px solid black;
   border-top: 1px solid black;
+}
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+#reset {
+  display: block;
+  font-size: 2rem;
+  margin: 0 auto;
 }
