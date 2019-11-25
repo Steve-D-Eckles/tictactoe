@@ -1,15 +1,19 @@
-const grid = ['', '', '', '', '', '', '', '', '']
-let turn = 0
+let grid = ['', '', '', '', '', '', '', '', '']
+let turn = Math.round(Math.random())
 const syms = ['X', 'O']
 const arr = Array.from(document.getElementById('board').children)
 const output = document.getElementById('turn')
 
 output.textContent = `It's Player ${syms[turn]}'s turn.`
+document.getElementById('reset').addEventListener('click', reset)
+gameStart()
 
-for (const i of arr) {
-  i.addEventListener('click', play)
+function gameStart () {
+  for (const i of arr) {
+    i.textContent = ''
+    i.addEventListener('click', play)
+  }
 }
-
 function play (event) {
   const index = arr.indexOf(event.target)
   grid[index] = syms[turn]
@@ -18,10 +22,9 @@ function play (event) {
     output.textContent = `Player ${syms[turn]} wins!`
     for (const element of arr) {
       element.removeEventListener('click', play)
-  }
-      
+    }
   } else if (grid.filter(n => n !== '').length === 9) {
-    output.textContent = `It's a tie!`
+    output.textContent = "It's a tie!"
   } else {
     turn = turn === 1 ? 0 : 1
     output.textContent = `It's Player ${syms[turn]}'s turn.`
@@ -73,4 +76,11 @@ function winCheck (index) {
         (grid[8] === grid[4] && grid[8] === grid[0])) return true
   }
   return false
+}
+
+function reset () {
+  gameStart()
+  grid = ['', '', '', '', '', '', '', '', '']
+  turn = Math.round(Math.random())
+  output.textContent = `It's Player ${syms[turn]}'s turn.`
 }
