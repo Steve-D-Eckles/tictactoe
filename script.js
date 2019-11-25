@@ -6,8 +6,8 @@ const output = document.getElementById('turn')
 
 output.textContent = `It's Player ${syms[turn]}'s turn.`
 
-for (let i = 0; i < 9; i++) {
-  arr[i].addEventListener('click', play)
+for (const i of arr) {
+  i.addEventListener('click', play)
 }
 
 function play (event) {
@@ -16,10 +16,13 @@ function play (event) {
   event.target.textContent = syms[turn]
   if (winCheck(index)) {
     output.textContent = `Player ${syms[turn]} wins!`
+    for (const element of arr) {
+      element.removeEventListener('click', play)
+  }
+      
   } else if (grid.filter(n => n !== '').length === 9) {
     output.textContent = `It's a tie!`
-  }
-    else {
+  } else {
     turn = turn === 1 ? 0 : 1
     output.textContent = `It's Player ${syms[turn]}'s turn.`
   }
