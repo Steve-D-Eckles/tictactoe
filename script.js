@@ -16,7 +16,10 @@ function play (event) {
   event.target.textContent = syms[turn]
   if (winCheck(index)) {
     output.textContent = `Player ${syms[turn]} wins!`
-  } else {
+  } else if (grid.filter(n => n !== '').length === 9) {
+    output.textContent = `It's a tie!`
+  }
+    else {
     turn = turn === 1 ? 0 : 1
     output.textContent = `It's Player ${syms[turn]}'s turn.`
   }
