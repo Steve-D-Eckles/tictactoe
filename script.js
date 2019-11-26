@@ -4,12 +4,17 @@ const syms = ['X', 'O']
 const arr = Array.from(document.getElementById('board').children)
 const output = document.getElementById('turn')
 const score = document.getElementById('score')
-const scores = [0, 0, 0]
+const cookie = document.cookie ? document.cookie.split('=') : null
+let scores = cookie || [0, 0, 0]
+if (scores === cookie) {
+  scores = cookie[1].split('')
+  console.log(scores)
+}
 
 output.textContent = `It's Player ${syms[turn]}'s turn.`
 document.getElementById('reset').addEventListener('click', reset)
 gameStart()
-score.textContent = `Player X: ${scores[0]} Player O: ${scores[1]} Ties: ${scores[2]}`
+score.textContent = `Player X: ${Number(scores[0])} Player O: ${Number(scores[1])} Ties: ${Number(scores[2])}`
 function gameStart () {
   for (const i of arr) {
     i.textContent = ''
@@ -38,6 +43,8 @@ function play (event) {
   }
   event.target.removeEventListener('click', play)
   score.textContent = `Player X: ${scores[0]} Player O: ${scores[1]} Ties: ${scores[2]}`
+  document.cookie = `score=${scores.join('')}; expires=Fri, 31 Dec 9999 23:59:59 GMT`
+  console.log(document.cookie)
 }
 
 function winCheck (index) {
