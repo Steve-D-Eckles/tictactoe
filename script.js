@@ -25,16 +25,19 @@ function gameStart () {
   for (const i of arr) {
     i.textContent = ''
     i.addEventListener('click', play)
+    i.addEventListener('keydown', play)
   }
 }
 function play (event) {
   const index = arr.indexOf(event.target)
+  if (event.key === 'Enter' || !event.key) {
   grid[index] = syms[turn]
   event.target.textContent = syms[turn]
   if (winCheck(index)[0]) {
     output.textContent = `Player ${syms[turn]} wins!`
     for (const element of arr) {
       element.removeEventListener('click', play)
+      element.removeEventListener('keydown', play)
     }
     turn === 0 ? ++scores[0] : ++scores[1]
     for (const square of winCheck(index)[1]) {
@@ -48,9 +51,11 @@ function play (event) {
     output.textContent = `It's Player ${syms[turn]}'s turn.`
   }
   event.target.removeEventListener('click', play)
+  event.target.removeEventListener('keydown', play)
   score.textContent = `Player ${syms[0]}: ${scores[0]} Player ${syms[1]}: ${scores[1]} Ties: ${scores[2]}`
   document.cookie = `score=${scores.join('')}; expires=Fri, 31 Dec 9999 23:59:59 GMT`
   console.log(document.cookie)
+    }
 }
 
 function winCheck (index) {
