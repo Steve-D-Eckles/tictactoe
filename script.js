@@ -4,10 +4,16 @@ const syms = ['X', 'O']
 const arr = Array.from(document.getElementById('board').children)
 const output = document.getElementById('turn')
 
+let x = 0, 
+    y = 0,
+    t = 0
+
 output.textContent = `It's Player ${syms[turn]}'s turn.`
 document.getElementById('reset').addEventListener('click', reset)
 gameStart()
-
+document.getElementById('x').textContent = `Player X: ${x}`
+document.getElementById('y').textContent = `Player O: ${y}`
+document.getElementById('t').textContent = `Ties: ${t}`
 function gameStart () {
   for (const i of arr) {
     i.textContent = ''
@@ -23,8 +29,14 @@ function play (event) {
     for (const element of arr) {
       element.removeEventListener('click', play)
     }
+    if (syms[turn] === 'X') {
+      document.getElementById('x').textContent = `Player X: ${++x}`
+    } else {
+      document.getElementById('y').textContent = `Player Y: ${++y}`
+    }
   } else if (grid.filter(n => n !== '').length === 9) {
     output.textContent = "It's a tie!"
+    document.getElementById('t').textContent = `Ties: ${++t}`
   } else {
     turn = turn === 1 ? 0 : 1
     output.textContent = `It's Player ${syms[turn]}'s turn.`
