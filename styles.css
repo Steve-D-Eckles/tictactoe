@@ -71,3 +71,7 @@ p {
   font-size: 2rem;
   margin: 2rem;
 }
+
+.win {
+  background-color: yellow;
+}
