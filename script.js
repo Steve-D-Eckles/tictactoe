@@ -3,17 +3,13 @@ let turn = Math.round(Math.random())
 const syms = ['X', 'O']
 const arr = Array.from(document.getElementById('board').children)
 const output = document.getElementById('turn')
-
-let x = 0, 
-    y = 0,
-    t = 0
+let score = document.getElementById('score')
+let scores = [0, 0, 0]
 
 output.textContent = `It's Player ${syms[turn]}'s turn.`
 document.getElementById('reset').addEventListener('click', reset)
 gameStart()
-document.getElementById('x').textContent = `Player X: ${x}`
-document.getElementById('y').textContent = `Player O: ${y}`
-document.getElementById('t').textContent = `Ties: ${t}`
+score.textContent = `Player X: ${scores[0]} Player O: ${scores[1]} Ties: ${scores[2]}`
 function gameStart () {
   for (const i of arr) {
     i.textContent = ''
@@ -29,19 +25,16 @@ function play (event) {
     for (const element of arr) {
       element.removeEventListener('click', play)
     }
-    if (syms[turn] === 'X') {
-      document.getElementById('x').textContent = `Player X: ${++x}`
-    } else {
-      document.getElementById('y').textContent = `Player Y: ${++y}`
-    }
+  syms[turn] === 'X' ? ++scores[0] : ++scores[1] 
   } else if (grid.filter(n => n !== '').length === 9) {
     output.textContent = "It's a tie!"
-    document.getElementById('t').textContent = `Ties: ${++t}`
+    ++scores[2]
   } else {
     turn = turn === 1 ? 0 : 1
     output.textContent = `It's Player ${syms[turn]}'s turn.`
   }
   event.target.removeEventListener('click', play)
+  score.textContent = `Player X: ${scores[0]} Player O: ${scores[1]} Ties: ${scores[2]}`
 }
 
 function winCheck (index) {
