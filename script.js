@@ -1,6 +1,12 @@
 let grid = ['', '', '', '', '', '', '', '', '']
 let turn = Math.round(Math.random())
 const syms = ['X', 'O']
+do {
+  syms[0] = prompt('Player 1 Symbol:', 'X') || 'X'
+} while (syms[0].length > 10)
+do {
+  syms[1] = prompt('Player 2 Symbol:', 'O') || 'O'
+} while (syms[1].length > 10)
 const arr = Array.from(document.getElementById('board').children)
 const output = document.getElementById('turn')
 const score = document.getElementById('score')
@@ -14,7 +20,7 @@ if (scores === cookie) {
 output.textContent = `It's Player ${syms[turn]}'s turn.`
 document.getElementById('reset').addEventListener('click', reset)
 gameStart()
-score.textContent = `Player X: ${Number(scores[0])} Player O: ${Number(scores[1])} Ties: ${Number(scores[2])}`
+score.textContent = `Player ${syms[0]}: ${scores[0]} Player ${syms[1]}: ${scores[1]} Ties: ${scores[2]}`
 function gameStart () {
   for (const i of arr) {
     i.textContent = ''
@@ -30,7 +36,7 @@ function play (event) {
     for (const element of arr) {
       element.removeEventListener('click', play)
     }
-    syms[turn] === 'X' ? ++scores[0] : ++scores[1]
+    turn === 0 ? ++scores[0] : ++scores[1]
     for (const square of winCheck(index)[1]) {
       arr[square].classList.add('win')
     }
@@ -42,7 +48,7 @@ function play (event) {
     output.textContent = `It's Player ${syms[turn]}'s turn.`
   }
   event.target.removeEventListener('click', play)
-  score.textContent = `Player X: ${scores[0]} Player O: ${scores[1]} Ties: ${scores[2]}`
+  score.textContent = `Player ${syms[0]}: ${scores[0]} Player ${syms[1]}: ${scores[1]} Ties: ${scores[2]}`
   document.cookie = `score=${scores.join('')}; expires=Fri, 31 Dec 9999 23:59:59 GMT`
   console.log(document.cookie)
 }
