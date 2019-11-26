@@ -31,31 +31,31 @@ function gameStart () {
 function play (event) {
   const index = arr.indexOf(event.target)
   if (event.key === 'Enter' || !event.key) {
-  grid[index] = syms[turn]
-  event.target.textContent = syms[turn]
-  if (winCheck(index)[0]) {
-    output.textContent = `Player ${syms[turn]} wins!`
-    for (const element of arr) {
-      element.removeEventListener('click', play)
-      element.removeEventListener('keydown', play)
+    grid[index] = syms[turn]
+    event.target.textContent = syms[turn]
+    if (winCheck(index)[0]) {
+      output.textContent = `Player ${syms[turn]} wins!`
+      for (const element of arr) {
+        element.removeEventListener('click', play)
+        element.removeEventListener('keydown', play)
+      }
+      turn === 0 ? ++scores[0] : ++scores[1]
+      for (const square of winCheck(index)[1]) {
+        arr[square].classList.add('win')
+      }
+    } else if (grid.filter(n => n !== '').length === 9) {
+      output.textContent = "It's a tie!"
+      ++scores[2]
+    } else {
+      turn = turn === 1 ? 0 : 1
+      output.textContent = `It's Player ${syms[turn]}'s turn.`
     }
-    turn === 0 ? ++scores[0] : ++scores[1]
-    for (const square of winCheck(index)[1]) {
-      arr[square].classList.add('win')
-    }
-  } else if (grid.filter(n => n !== '').length === 9) {
-    output.textContent = "It's a tie!"
-    ++scores[2]
-  } else {
-    turn = turn === 1 ? 0 : 1
-    output.textContent = `It's Player ${syms[turn]}'s turn.`
+    event.target.removeEventListener('click', play)
+    event.target.removeEventListener('keydown', play)
+    score.textContent = `Player ${syms[0]}: ${scores[0]} Player ${syms[1]}: ${scores[1]} Ties: ${scores[2]}`
+    document.cookie = `score=${scores.join('')}; expires=Fri, 31 Dec 9999 23:59:59 GMT`
+    console.log(document.cookie)
   }
-  event.target.removeEventListener('click', play)
-  event.target.removeEventListener('keydown', play)
-  score.textContent = `Player ${syms[0]}: ${scores[0]} Player ${syms[1]}: ${scores[1]} Ties: ${scores[2]}`
-  document.cookie = `score=${scores.join('')}; expires=Fri, 31 Dec 9999 23:59:59 GMT`
-  console.log(document.cookie)
-    }
 }
 
 function winCheck (index) {
