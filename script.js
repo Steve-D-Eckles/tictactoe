@@ -81,7 +81,7 @@ function winCheck (index) {
     if ((grid[4] === grid[3] && grid[4] === grid[5])) return [true, [4, 3, 5]]
     if ((grid[4] === grid[1] && grid[4] === grid[7])) return [true, [4, 1, 7]]
     if ((grid[4] === grid[0] && grid[4] === grid[8])) return [true, [4, 0, 8]]
-    if ((grid[4] === grid[6] && grid[7] === grid[2])) return [true, [4, 6, 2]]
+    if ((grid[4] === grid[6] && grid[4] === grid[2])) return [true, [4, 6, 2]]
   }
   if (index === 5) {
     if ((grid[5] === grid[2] && grid[5] === grid[8])) return [true, [5, 2, 8]]
